@@ -4,12 +4,17 @@
   "description": "A template for starting express web applications.",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "iCreate <idevelopedreams@gmail.com> (live2create.me)",
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "nodemon": "^1.18.11"
   }
 }
