@@ -4,18 +4,20 @@
   "description": "A template for starting express web applications.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/app.js",
+    "start": "nodemon --exec babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "iCreate <idevelopedreams@gmail.com> (live2create.me)",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
     "nodemon": "^1.18.11"
   }
 }
