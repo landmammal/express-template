@@ -4,7 +4,7 @@
   "description": "A template for starting express web applications.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon src/app.js",
+    "start": "nodemon --exec babel-node src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "iCreate <idevelopedreams@gmail.com> (live2create.me)",
