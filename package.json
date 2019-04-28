@@ -1,0 +1,11 @@
+{
+  "name": "app-template",
+  "version": "1.0.0",
+  "description": "A template for starting express web applications.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "iCreate <idevelopedreams@gmail.com> (live2create.me)",
+  "license": "MIT"
+}
