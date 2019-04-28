@@ -2,7 +2,7 @@
   "name": "app-template",
   "version": "1.0.0",
   "description": "A template for starting express web applications.",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon --exec babel-node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
