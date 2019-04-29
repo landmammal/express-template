@@ -1,10 +1,16 @@
-import express from 'express';
+import express from 'express'; 
+import users from './users.js';
 
 // initializing router middleware
 const router = express.Router();
 
+// set up resource specific routes
+router.use('/users', users)
+
+
 router.get('/', (req, res) => {
-    res.send('hello world');
+    res.send('hello root');
 })
+
 
 module.exports = router;
