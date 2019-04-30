@@ -7,7 +7,7 @@ import mongoose from 'mongoose';
 import routes from '../routes';
 
 // mongod connection
-mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true, useCreateIndex: true });
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
