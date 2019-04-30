@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -21,6 +22,18 @@ const userSchema = new mongoose.Schema({
         type: Date, 
         default: Date.now 
     }
+});
+
+// hash password before storing to db
+userSchema.pre('save', function(next) {
+    let user = this;
+    bcrypt.hash(user.password, 10, (err, hash) => {
+        if(err){
+            return next(err);
+        }
+        user.password = hash;
+        next();
+    });
 });
 
 // creates a table name with a define schema
