@@ -3,19 +3,51 @@ import User from '../models/user'
 
 const router = express.Router();
 
+// example secure profile route
+router.get('/profile', (req, res, next) => {
+    if ( !req.session.userId) {
+        let err = new Error('You are not authorize to view this page.')
+        err.status = 403;
+        return next(err);
+    }
+    User.findById(req.session.userId)
+        .exec(function(err, user){
+            if (err) {
+                return next(err);
+            } else {
+                return res.send('Hello ' + user.name + '.')
+            }
+        })
+});
+
 // GET /login
-router.get('/register', (req, res, next) => {
+router.get('/login', (req, res, next) => {
     res.send('hello login');
 });
 
 // POST /login
-router.get('/register', (req, res, next) => {
-    res.send('your logged in');
+router.post('/login', (req, res, next) => {
+    if(req.body.email && req.body.password){
+        User.authenticate(req.body.email, req.body.password, function(err, user){
+            if (err || !user) {
+                let err = new Error('Wrong email or password');
+                err.status = 401;
+                return next(err);
+            } else {
+                req.session.userId = user._id;
+                return res.redirect('./profile');
+            }
+        });
+    } else {
+        let err = new Error('Email and Password are required');
+        err.status = 401;
+        return next(err);
+    }
 });
 
 // GET /register
 router.get('/register', (req, res, next) => {
-    res.send('hello world');
+    res.send('hello register');
 });
 
 // POST /register
@@ -44,6 +76,7 @@ router.post('/register', (req, res, next) => {
             if (err){
                 return next(err);
             } else{
+                req.session.userId = user._id;
                 return res.redirect('/');
             }
         });
