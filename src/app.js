@@ -3,7 +3,15 @@ import 'dotenv/config';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import express from 'express';
+import mongoose from 'mongoose';
 import routes from '../routes';
+
+// mongod connection
+mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true });
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+
 // starting application
 const app = express();
 
