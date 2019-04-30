@@ -8,7 +8,7 @@ import routes from '../routes';
 const app = express();
 
 // parse incoming request
-app.use(bodyParser.jason());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // application middleware
