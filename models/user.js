@@ -24,6 +24,27 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+// authenticate input against whats in the db
+userSchema.statics.authenticate = function(email, password, callback){
+  User.findOne({ email: email })
+        .exec(function(err, user){
+            if(err){
+                return callback(err);
+            }else if ( !user ) {
+                let err = new Error('No user Associated with this email.')
+                err.status = 401;
+                return callback(err);
+            }
+            // compare password
+            bcrypt.compare(password, user.password, function(err, result){
+                if (result === true){
+                    return callback(null, user)
+                }else {
+                    return callback();
+                }
+            });
+        }); // execute the query on the db
+};
 // hash password before storing to db
 userSchema.pre('save', function(next) {
     let user = this;
