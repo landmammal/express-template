@@ -1,5 +1,6 @@
-// importing http node module to set up server to use https request
-import http from 'http';
+
+import 'dotenv/config';
+import http from 'http'; // http  module to set up server accepting https requests
 
 // importing express app setup
 const app = require('./src/app')

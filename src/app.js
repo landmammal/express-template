@@ -4,7 +4,15 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
+import session from 'express-session';
 import routes from '../routes';
+
+// use session for tracking logins
+app.use(session({
+    secret: process.env.SECRETSESSION,
+    resave: true,
+    saveUninitialized: false
+}));
 
 // mongod connection
 mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true, useCreateIndex: true });
