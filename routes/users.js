@@ -3,10 +3,20 @@ import User from '../models/user'
 
 const router = express.Router();
 
+// GET /login
+router.get('/register', (req, res, next) => {
+    res.send('hello login');
+});
+
+// POST /login
+router.get('/register', (req, res, next) => {
+    res.send('your logged in');
+});
+
 // GET /register
 router.get('/register', (req, res, next) => {
     res.send('hello world');
-})
+});
 
 // POST /register
 router.post('/register', (req, res, next) => {
