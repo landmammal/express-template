@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/profile', (req, res, next) => {
     if ( !req.session.userId) {
         let err = new Error('You are not authorize to view this page.')
-        err.status = 403;
+        err.status = 401;
         return next(err);
     }
     User.findById(req.session.userId)
