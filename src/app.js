@@ -33,8 +33,6 @@ app.use( (req, res, next) => {
     next();
 });
 
-
-
 // parse incoming request
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,5 +41,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors()); // handles crossorigin request defaul is *
 app.use(express.static('../public')); // where to look for static files 
 app.use(routes); // our routing manager for all requests
+
+// custom error 
+app.use( (req, res, next) => {
+    let err = new Error('Not found');
+    err.status = 404;
+    next(err);
+})
+app.use( (err, req, res, next) => {
+    res.locals.error = err;
+    res.status = (err.status);
+    res.send('custom ' + err);
+})
 
 module.exports = app;
