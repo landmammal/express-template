@@ -45,6 +45,20 @@ router.post('/login', (req, res, next) => {
     }
 });
 
+// GET /logout 
+router.get('/logout', (req, res, next) => {
+    if (req.session) {
+        // delete session
+        req.session.destroy( (err) => {
+            if (err){
+                return next(err)
+            } else {
+                res.redirect('/')
+            }
+        })
+    }
+});
+
 // GET /register
 router.get('/register', (req, res, next) => {
     res.send('hello register');
