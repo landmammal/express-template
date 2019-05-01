@@ -5,16 +5,26 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import session from 'express-session';
+const MongoStore = require('connect-mongo')(session);
 import routes from '../routes';
 
 // starting application
 const app = express();
 
+// mongodb connection
+mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true, useCreateIndex: true });
+const db = mongoose.connection;
+// mongo error handler
+db.on('error', console.error.bind(console, 'connection error:'));
+
 // use session for tracking logins
 app.use(session({
     secret: process.env.SECRETSESSION,
     resave: true,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({
+        mongooseConnection: db
+    })
 }));
 
 // make users with sessions available in views
@@ -23,10 +33,6 @@ app.use( (req, res, next) => {
     next();
 });
 
-// mongod connection
-mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true, useCreateIndex: true });
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
 
 
 // parse incoming request
