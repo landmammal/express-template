@@ -17,6 +17,12 @@ app.use(session({
     saveUninitialized: false
 }));
 
+// make users with sessions available in views
+app.use( (req, res, next) => {
+    res.locals.currentUser = req.session.userId;
+    next();
+});
+
 // mongod connection
 mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true, useCreateIndex: true });
 const db = mongoose.connection;
