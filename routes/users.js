@@ -1,15 +1,11 @@
-import express from 'express'
-import User from '../models/user'
+import express from 'express';
+import User from '../models/user';
+import mid from '../middleware/index';
 
 const router = express.Router();
 
 // example secure profile route
-router.get('/profile', (req, res, next) => {
-    if ( !req.session.userId) {
-        let err = new Error('You are not authorize to view this page.')
-        err.status = 401;
-        return next(err);
-    }
+router.get('/profile', mid.requiredLogin, (req, res, next) => {
     User.findById(req.session.userId)
         .exec(function(err, user){
             if (err) {
@@ -21,7 +17,7 @@ router.get('/profile', (req, res, next) => {
 });
 
 // GET /login
-router.get('/login', (req, res, next) => {
+router.get('/login', mid.loggedOut, (req, res, next) => {
     res.send('hello login');
 });
 
@@ -60,7 +56,7 @@ router.get('/logout', (req, res, next) => {
 });
 
 // GET /register
-router.get('/register', (req, res, next) => {
+router.get('/register', mid.loggedOut, (req, res, next) => {
     res.send('hello register');
 });
 
