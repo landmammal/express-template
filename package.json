@@ -1,6 +1,9 @@
 {
   "name": "app-template",
   "version": "1.0.0",
+  "engines": {
+    "node": "11.8.0"
+  },
   "description": "A template for starting express web applications.",
   "main": "server.js",
   "scripts": {
