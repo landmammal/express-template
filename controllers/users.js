@@ -1,9 +1,7 @@
-import User from '../models/user';
-
 // compares user input to db input and creates a session for them.
-exports.loginUser = (req, res, next) => {
+exports.loginUser = async (req, res, next) => {
     if(req.body.email && req.body.password){
-        User.authenticate(req.body.email, req.body.password, function(err, user){
+        await req.context.models.User.authenticate(req.body.email, req.body.password, function(err, user){
             if (err || !user) {
                 let err = new Error('Wrong email or password');
                 err.status = 401;
@@ -21,7 +19,7 @@ exports.loginUser = (req, res, next) => {
 }
 
 // adds users to db, validates inputs and creates sessions
-exports.registerUser = (req, res, next) => {
+exports.registerUser = async (req, res, next) => {
     if(req.body.email &&
        req.body.name &&
        req.body.password && 
@@ -42,7 +40,7 @@ exports.registerUser = (req, res, next) => {
         }
 
         // insert new user into mongo db
-        User.create(userDetails, (err, user) => {
+        await req.context.models.User.create(userDetails, (err, user) => {
             if (err){
                 return next(err);
             } else{
@@ -58,8 +56,8 @@ exports.registerUser = (req, res, next) => {
 }
 
 // looks for user in the db and returns him
-exports.userProfile = (req, res, next) => {
-    User.findById(req.session.userId)
+exports.userProfile = async (req, res, next) => {
+    await req.context.models.User.findById(req.session.userId)
         .exec(function(err, user){
             if (err) {
                 return next(err);
