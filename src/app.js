@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import session from 'express-session';
+import models, { connectDb } from '../models';
 const MongoStore = require('connect-mongo')(session);
 import routes from '../routes';
 
@@ -12,7 +13,7 @@ import routes from '../routes';
 const app = express();
 
 // mongodb connection
-mongoose.connect('mongodb://localhost:27017/my_database', { useNewUrlParser: true, useCreateIndex: true });
+connectDb();
 const db = mongoose.connection;
 // mongo error handler
 db.on('error', console.error.bind(console, 'connection error:'));
