@@ -1,8 +1,8 @@
-import express from 'express';
+import { Router } from 'express';
 import usersController from '../controllers/users';
 import mid from '../middleware/index';
 
-const router = express.Router();
+const router = Router();
 
 // Get /profile with authorization 
 router.get('/profile', mid.requiredLogin, usersController.userProfile);
