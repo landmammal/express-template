@@ -41,6 +41,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // application middleware
 app.use(cors()); // handles crossorigin request defaul is *
 app.use(express.static('../public')); // where to look for static files 
+// pass models interface via context object to routes
+app.use( (req, res, next) => {
+    req.context = {models};
+    next();
+});
 app.use(routes); // our routing manager for all requests
 
 // custom error 
